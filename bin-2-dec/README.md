@@ -22,6 +22,10 @@ For detailed explanation on how things work, consult the [docs for vue-loader](h
 
 # Bin2Dec
 
+- **Bin2Dec (Project1)**
+  ![bin2dec2](https://user-images.githubusercontent.com/57585087/97329299-f3828180-1887-11eb-9690-f63aad87eafa.png)
+  ![bin2dec](https://user-images.githubusercontent.com/57585087/97329305-f54c4500-1887-11eb-8963-3e29688e7c97.png)
+
 **Tier:** 1-Beginner
 
 Binary is the number system all digital computers are based on.
