@@ -174,6 +174,7 @@ h4 {
 }
 textarea {
   margin-left: 15px;
+  resize: none;
 }
 #result {
   text-align: center;
