@@ -68,7 +68,7 @@ export default {
     },
     percentage: function () {
       this.equation = "";
-      this.message = (this.message / 100).toString();
+      this.message = Number(this.message / 100);
       this.value = this.message;
     },
     inverse: function () {
