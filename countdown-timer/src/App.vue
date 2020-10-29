@@ -1,15 +1,11 @@
 <template>
   <div class="container">
     <h2 class="title">CountDown</h2>
+    <Countdown deadline="August 22, 2022"></Countdown>
     <div class="row">
       <div class="calenderInput">
         <label for="dataDate">Please select a Future Date: </label>
-        <input type="datetime-local" id="dataDate" v-model="dateFuture" />
-      </div>
-
-      <div class="calenderInput">
-        <label for="dataDate2">Please select a Today Date: </label>
-        <input type="datetime-local" id="dataDate2" v-model="dateToday" />
+        <input type="date" id="dataDate" v-model="dateFuture" />
       </div>
       <button @click="giveToday" style="margin-top: 20px">give today</button>
 
@@ -38,15 +34,21 @@
         </div>
       </div>
     </div>
+    <div class="row"></div>
   </div>
 </template>
 
 <script>
+import Countdown from "./components/CountDown";
+
 export default {
+  components: {
+    Countdown,
+  },
   data() {
     return {
       dateToday: null,
-      dateFuture: null, // 05/09/2019
+      dateFuture: "August 22, 2022", // 05/09/2019
       state: {
         days: 0,
         hours: 0,
@@ -62,16 +64,22 @@ export default {
       this.state.hours = null;
       this.state.days = null;
       this.today = null;
-      console.log(this.dateFuture);
-      console.log(this.dateToday);
+      console.log(
+        String(new Date(this.dateFuture)).split(" ").splice(1, 3).join(" ")
+      );
+      this.dateFuture = String(new Date(this.dateFuture))
+        .split(" ")
+        .splice(1, 3)
+        .join(" ");
+      // console.log(this.dateToday);
 
       let dateToday = new Date().toISOString().substr(0, 10);
       let diffInMilliseconds = Math.abs(
         new Date(this.today) - new Date(this.dateFuture)
       );
-      console.log(diffInMilliseconds);
-      console.log("gelecek: " + this.dateFuture);
-      console.log("bugun:   " + dateToday);
+      // console.log("------------>" + diffInMilliseconds);
+      // console.log("gelecek: " + this.dateFuture);
+      // console.log("bugun:   " + dateToday);
 
       //! calculate days
       const days = Math.floor(diffInMilliseconds / 86400);
@@ -119,9 +127,9 @@ html {
 
 .row {
   display: block;
-  width: 90vw;
+  width: 80vw;
   // background-color: red;
-  height: 85vh;
+  height: 65vh;
   margin-left: auto;
   margin-right: auto;
   margin-top: 1em;
@@ -144,6 +152,7 @@ html {
 .countdown-item {
   border-radius: 50%;
   background-color: rebeccapurple;
+  position: relative;
 }
 .countdown-item span {
   display: inline-block;
