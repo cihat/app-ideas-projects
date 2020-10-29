@@ -20,6 +20,10 @@ For detailed explanation on how things work, consult the [docs for vue-loader](h
 <hr/>
 <br/>
 
+## ScreenShots
+
+![calculator](https://user-images.githubusercontent.com/57585087/97590508-bf39cd00-1a0f-11eb-95e3-1af263b185c0.png)
+
 # Calculator
 
 **Tier:** 1-Beginner
