@@ -7,7 +7,7 @@
 
     <div class="calculator-items">
       <div class="calculator-row-1">
-        <div class="calculator-item" @click="drop()"><b>←</b></div>
+        <div class="calculator-item" @click="drop()"><b>⌫</b></div>
         <div class="calculator-item" @click="cleanResult()">C<b>E</b></div>
         <div class="calculator-item" @click="cleanAll()"><b>C</b></div>
         <div class="calculator-item" @click="toggle()"><b>±</b></div>
@@ -60,14 +60,10 @@ export default {
     operate(element) {
       console.log("operate..");
       this.formula += element;
-      // console.log("this.formula:");
-      // console.log(this.formula);
     },
     equal() {
       console.log("equal..");
       this.result = eval(this.formula);
-      // console.log("this.formula:");
-      // console.log(this.formula);
     },
     cleanResult() {
       console.log("cleanResult..");

@@ -21,6 +21,9 @@
         <div @click="operate(3)" class="button">3</div>
         <div @click="operate('+')" class="button">+</div>
         <div id="zero" @click="operate(0)" class="button">0</div>
+        <div class="button" @click="drop()">
+          <b style="font-weight: 900 font-size: 16px;">⌫</b>
+        </div>
         <div @click="operate('.')" class="button">.</div>
         <div @click="equal()" class="button">=</div>
       </div>
@@ -156,7 +159,6 @@ export default {
 #zero {
   text-align: left;
   padding-left: 2rem;
-  flex-grow: 2;
 }
 
 .calculator-formula {
