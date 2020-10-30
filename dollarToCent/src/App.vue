@@ -3,16 +3,17 @@
     <div class="title">
       <h3 id="title">Para Bozdurma</h3>
     </div>
-    <div class="row">
+    <div class="rowInput">
       <label style="display: inline-block" for="inputDoloars"
-        >Lütfen Bozdurulacak Değeri Giriniz---->
+        >Lütfen Bozdurulacak Değeri Giriniz(Eğer küsüratklı ise nokta koymayı
+        unutmayın)
       </label>
       <input
         v-model="inputValue"
         id="inputDoloars"
         name="inputDolars"
         type="number"
-        placeholder="Lütfen Paranızı Giriniz: "
+        placeholder=""
       />
     </div>
     <div class="button">
@@ -23,7 +24,6 @@
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/7/79/1_Yeni_Kuru%C5%9F_b.png"
           alt="bir tl"
-          width="100px"
         />
         <span v-bind="count1">{{ count1 }}</span>
       </div>
@@ -31,7 +31,6 @@
         <img
           src="https://www.serhatsaglam.com.tr/wp-content/uploads/2019/08/5-kurus.png"
           alt="bir tl"
-          width="100px"
         />
         <span v-bind="count5">{{ count5 }}</span>
       </div>
@@ -39,7 +38,6 @@
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/10kr_obverse.png/120px-10kr_obverse.png"
           alt="bir tl"
-          width="100px"
         />
         <span v-bind="count5">{{ count10 }}</span>
       </div>
@@ -47,7 +45,6 @@
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/4/40/25kr_obverse.png"
           alt="bir tl"
-          width="100px"
         />
         <span v-bind="count5">{{ count25 }}</span>
       </div>
@@ -55,7 +52,6 @@
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/7/7b/50kr_obverse.png"
           alt="bir tl"
-          width="100px"
         />
         <span v-bind="count5">{{ count50 }}</span>
       </div>
@@ -63,7 +59,6 @@
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/1TL_obverse.png/199px-1TL_obverse.png"
           alt="bir tl"
-          width="100px"
         />
         <span v-bind="count5">{{ count100 }}</span>
       </div>
@@ -118,29 +113,47 @@ export default {
   padding: 0px;
   font-size: 14px;
 }
+
+html {
+}
 .container {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  border: 1px solid red;
   font-size: 20px;
-  height: 55vw;
   padding: 1.5em;
   margin: 1.5em;
-  position: relative;
   // overflow: scroll;
+}
+
+.container > * {
+  margin-bottom: 5px;
 }
 
 .title {
   display: flex;
   justify-content: center;
   #title {
+    font-size: 3em;
     display: inline-block;
     margin-bottom: 1em;
   }
 }
-#inputDoloars {
+
+.rowInput {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+}
+.rowInput label {
+  display: block;
+}
+.rowInput label {
   font-size: 1em;
+}
+
+#inputDoloars {
+  font-size: 1.5em;
+  margin-left: 5px;
 }
 .button {
   display: flex;
@@ -148,32 +161,30 @@ export default {
   justify-content: center;
 }
 .button button {
-  font-size: 0.7em;
+  font-size: 1.7em;
   padding: 0.5em;
 }
 
 .result {
-  border: 1px dashed red;
-  height: 21em;
   display: flex;
   align-content: flex-start;
-  position: relative;
+  justify-content: space-around;
   // overflow: scroll;
   box-sizing: margin-box;
   margin: 10px 5px;
 }
 
 .penny {
-  height: 175px;
-  width: 150px;
-  background-color: red;
+  height: 150px;
+  width: 130px;
   // border-radius: 50%;
   position: relative;
 }
 .penny img {
   position: relative;
-  left: 25px;
-  top: 25px;
+  left: 20px;
+  top: 8px;
+  width: 7em;
 
   border-radius: 50%;
 }
@@ -181,7 +192,7 @@ export default {
 .penny span {
   position: absolute;
   font-size: 2.3em;
-  left: 69px;
+  left: 60px;
   bottom: 1px;
 }
 

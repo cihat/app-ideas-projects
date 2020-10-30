@@ -18,6 +18,12 @@ npm run build
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 <hr/>
+
+## ScrenShots
+
+![paraBozdurma](https://user-images.githubusercontent.com/57585087/97689481-b5b27280-1aac-11eb-9a91-4c8adddcf164.png)
+
+<hr/>
 <br/>
 
 # Dollars To Cents
