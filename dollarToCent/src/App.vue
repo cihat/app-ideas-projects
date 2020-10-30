@@ -114,8 +114,6 @@ export default {
   font-size: 14px;
 }
 
-html {
-}
 .container {
   display: flex;
   flex-direction: column;
@@ -143,17 +141,19 @@ html {
   display: flex;
   justify-content: center;
   font-size: 18px;
+  align-self: center;
+  margin-bottom: 40px;
 }
 .rowInput label {
   display: block;
-}
-.rowInput label {
   font-size: 1em;
+  margin-top: 5px;
 }
 
 #inputDoloars {
   font-size: 1.5em;
   margin-left: 5px;
+  border-radius: 10px;
 }
 .button {
   display: flex;
@@ -163,6 +163,7 @@ html {
 .button button {
   font-size: 1.7em;
   padding: 0.5em;
+  border-radius: 10px;
 }
 
 .result {
@@ -194,6 +195,7 @@ html {
   font-size: 2.3em;
   left: 60px;
   bottom: 1px;
+  margin: auto auto;
 }
 
 .result div + div {
