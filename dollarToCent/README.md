@@ -21,7 +21,10 @@ For detailed explanation on how things work, consult the [docs for vue-loader](h
 
 ## ScrenShots
 
-![paraBozdurma](https://user-images.githubusercontent.com/57585087/97689481-b5b27280-1aac-11eb-9a91-4c8adddcf164.png)
+- **DolarToCent**
+  ![paraBozdurma](https://i.imgur.com/eEGmREW.gif)
+  ![paraBozdurma](https://user-images.githubusercontent.com/57585087/98141790-17714300-1ed8-11eb-9151-518cc2955266.gif)
+  ![paraBozdurma](https://user-images.githubusercontent.com/57585087/97689481-b5b27280-1aac-11eb-9a91-4c8adddcf164.png)
 
 <hr/>
 <br/>
@@ -39,12 +42,12 @@ The challenge: Try this without using any frameworks.
 
 ## User Stories
 
-- [X] User can enter a dollar value
-- [X] User can see the total cents from the converted dollar value
+- [x] User can enter a dollar value
+- [x] User can see the total cents from the converted dollar value
 
 ## Bonus features
 
-- [X] User can see how many were pennies, nickels, quarters and dimes from the total cents
+- [x] User can see how many were pennies, nickels, quarters and dimes from the total cents
 
 ## Useful links and resources
 
