@@ -4,13 +4,15 @@
 
 ## ScreenShots
 
+- **DolarToCent**
+  ![paraBozdurma](https://i.imgur.com/eEGmREW.gif)
+  ![paraBozdurma](https://user-images.githubusercontent.com/57585087/98141790-17714300-1ed8-11eb-9151-518cc2955266.gif)
+  ![paraBozdurma](https://user-images.githubusercontent.com/57585087/97689481-b5b27280-1aac-11eb-9a91-4c8adddcf164.png)
 - **Bin2Dec (Project1)**
   ![bin2dec2](https://user-images.githubusercontent.com/57585087/97329299-f3828180-1887-11eb-9690-f63aad87eafa.png)
   ![bin2dec](https://user-images.githubusercontent.com/57585087/97329305-f54c4500-1887-11eb-8963-3e29688e7c97.png)
 - **Calculator**
   ![calculator](https://user-images.githubusercontent.com/57585087/97590508-bf39cd00-1a0f-11eb-95e3-1af263b185c0.png)
-- **DolarToCent**
-  ![paraBozdurma](https://user-images.githubusercontent.com/57585087/97689481-b5b27280-1aac-11eb-9a91-4c8adddcf164.png)
 
 <br/>
 <hr/>
