@@ -31,45 +31,27 @@
         <p>Lütfen Bir Değer Giriniz...</p>
       </div>
       <div class="penny penny1" v-if="count1">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/7/79/1_Yeni_Kuru%C5%9F_b.png"
-          alt="bir tl"
-        />
+        <img src="./assets/img/1_Yeni_Kuruş_b.png" alt="bir tl" />
         <span v-bind="count1">{{ count1 }}</span>
       </div>
       <div class="penny penny5" v-if="count5">
-        <img
-          src="https://www.serhatsaglam.com.tr/wp-content/uploads/2019/08/5-kurus.png"
-          alt="bir tl"
-        />
+        <img src="./assets/img/5-kurus.png" alt="bir tl" />
         <span v-bind="count5">{{ count5 }}</span>
       </div>
       <div class="penny penny10" v-if="count10">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/10kr_obverse.png/120px-10kr_obverse.png"
-          alt="bir tl"
-        />
+        <img src="./assets/img/10kr.png" alt="bir tl" />
         <span v-bind="count10">{{ count10 }}</span>
       </div>
       <div class="penny penny25" v-if="count25">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/4/40/25kr_obverse.png"
-          alt="bir tl"
-        />
+        <img src="./assets/img/25kr_obverse.png" alt="bir tl" />
         <span v-bind="count25">{{ count25 }}</span>
       </div>
       <div class="penny penny50" v-if="count50">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/7/7b/50kr_obverse.png"
-          alt="bir tl"
-        />
+        <img src="./assets/img/50kr_obverse.png" alt="bir tl" />
         <span v-bind="count50">{{ count50 }}</span>
       </div>
       <div class="penny penny100" v-if="count100">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/1TL_obverse.png/199px-1TL_obverse.png"
-          alt="bir tl"
-        />
+        <img src="./assets/img/1TL_obverse.png" alt="bir tl" />
         <span v-bind="count100">{{ count100 }}</span>
       </div>
     </div>
