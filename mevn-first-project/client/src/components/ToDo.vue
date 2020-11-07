@@ -29,7 +29,7 @@
             <ul>
               <li v-for="todo in todos" :key="todo._id">
                 <button>
-                  <label for="do">Yaptım</label>
+                  Yaptım
                   <input id="do" type="checkbox" @click="silToDo(todo._id)" />
                 </button>
                 {{ todo.title }}
@@ -63,11 +63,9 @@ export default {
       this.yeniToDo = "";
     },
     silToDo(todoID) {
-      setTimeout(() => {
-        ToDoAPI.deleteTodo(todoID);
-        this.todos = this.todos.filter(function (obj) {
-          return obj._id !== todoID;
-        }, 4000);
+      ToDoAPI.deleteTodo(todoID);
+      this.todos = this.todos.filter(function (obj) {
+        return obj._id !== todoID;
       });
     },
     async loadTodos() {

@@ -49,7 +49,7 @@ export default {
       margin: 5px;
       padding: 10px;
       display: flex;
-      background-color: red;
+      background-color: rgb(87, 121, 47);
       color: white;
       font-size: 24px;
       font-weight: 900;
