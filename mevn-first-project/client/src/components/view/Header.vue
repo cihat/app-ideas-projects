@@ -14,7 +14,7 @@
           tag="li"
           class="nav-item"
         >
-          <a class="nav-link">ToDo List</a>
+          <a class="nav-link">ToDo Ekle</a>
         </router-link>
         <router-link
           active-class="active"

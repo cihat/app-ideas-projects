@@ -28,7 +28,10 @@
           <transition name="slide" mode="out-in">
             <ul>
               <li v-for="todo in todos" :key="todo._id">
-                <input type="checkbox" @click="silToDo(todo._id)" />
+                <button>
+                  <label for="do">Yaptım</label>
+                  <input id="do" type="checkbox" @click="silToDo(todo._id)" />
+                </button>
                 {{ todo.title }}
               </li>
             </ul>
@@ -185,6 +188,18 @@ export default {
             margin: 5px 5px;
             // overflow: scroll;
             word-break: break-all;
+            button {
+              background-color: red;
+              color: white;
+              border-radius: 5px;
+              display: flex;
+              flex-direction: center;
+              align-items: center;
+              cursor: pointer;
+              & > * {
+                cursor: pointer;
+              }
+            }
             input {
               margin: 5px 10px;
             }
