@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Hello from '../components/Hello';
-import Posts from '../components/Posts';
 import NotFound from '../components/NotFound';
+import Posts from '../components/Posts';
+import addpost from '../components/AddPost';
+import editpost from '../components/editPost';
 
 
 Vue.use(Router);
@@ -12,13 +14,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: Hello
+      name: 'posts',
+      component: Posts
     },
     {
-      path: '/posts',
-      name: 'Posts',
-      component: Posts
+      path: '/posts/add',
+      name: 'addpost',
+      component: addpost
+    },
+    {
+      path: '/posts/edit',
+      name: 'editpost',
+      component: editpost
     },
     {
       path: '/not-found',

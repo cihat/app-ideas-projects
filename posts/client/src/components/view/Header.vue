@@ -10,11 +10,27 @@
       <ul class="navbar-nav mr-auto">
         <router-link
           active-class="active"
-          to="/posts"
+          to="/"
+          tag="li"
+          class="nav-item"
+        >
+          <a class="nav-link">Posts</a>
+        </router-link>
+        <router-link
+          active-class="active"
+          to="/posts/add"
           tag="li"
           class="nav-item"
         >
           <a class="nav-link">Post Ekle</a>
+        </router-link>
+        <router-link
+          active-class="active"
+          to="/posts/edit"
+          tag="li"
+          class="nav-item"
+        >
+          <a class="nav-link">Post Edit</a>
         </router-link>
         <router-link
           active-class="active"
