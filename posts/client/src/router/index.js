@@ -1,35 +1,40 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Hello from '../components/Hello';
 import NotFound from '../components/NotFound';
-import Posts from '../components/Posts';
-import addpost from '../components/AddPost';
-import editpost from '../components/editPost';
-
+import HomeComponent from '../components/HomeComponent';
+import CreateComponent from '../components/CreatComponent';
+import IndexComponent from '../components/IndexComponent';
+import EditComponent from '../components/EditComponent';
 
 Vue.use(Router);
+
 export default new Router({
   base: '/',
   mode: 'history',
   routes: [
     {
+      name: 'home',
       path: '/',
+      component: HomeComponent
+    },
+    {
+      name: 'create',
+      path: '/create',
+      component: CreateComponent
+    },
+    {
       name: 'posts',
-      component: Posts
+      path: '/posts',
+      component: IndexComponent
     },
     {
-      path: '/posts/add',
-      name: 'addpost',
-      component: addpost
+      name: 'edit',
+      path: '/edit:id',
+      component: EditComponent
     },
     {
-      path: '/posts/edit',
-      name: 'editpost',
-      component: editpost
-    },
-    {
+      name: 'notFound',
       path: '/not-found',
-      name: 'not-found',
       component: NotFound
     },
     {

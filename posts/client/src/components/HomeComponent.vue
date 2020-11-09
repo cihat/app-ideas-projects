@@ -1,6 +1,8 @@
 <template>
   <div id="Hello">
     <h1>Hello Guys, Welcome To MEVN Post Project🧨✨🎉🎆🎇</h1>
+    <div class="text">Home Component</div>
+    <div class="about">I'm the Home Component component.</div>
   </div>
 </template>
 

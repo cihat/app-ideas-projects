@@ -1,9 +1,13 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router/index.js';
-import VueSweetalert2 from 'vue-sweetalert2';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-Vue.use(VueSweetalert2);
+import VueAxios from 'vue-axios';
+import axios from 'axios';
+Vue.use(VueAxios, axios);
+
+
 Vue.config.productionTip = false;
 
 new Vue({
