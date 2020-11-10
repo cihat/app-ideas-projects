@@ -8,7 +8,8 @@
 
 ![paraBozdurma](https://i.imgur.com/eEGmREW.gif)
 ![paraBozdurma](https://user-images.githubusercontent.com/57585087/98141790-17714300-1ed8-11eb-9151-518cc2955266.gif)
-![paraBozdurma](https://user-images.githubusercontent.com/57585087/97689481-b5b27280-1aac-11eb-9a91-4c8adddcf164.png)
+
+<!-- ![paraBozdurma](https://user-images.githubusercontent.com/57585087/97689481-b5b27280-1aac-11eb-9a91-4c8adddcf164.png) -->
 
 #### - **ToDoApp**
 
@@ -171,6 +172,539 @@ var app = new Vue({
 ![lifeCycle](https://miro.medium.com/max/512/1*byyX8EW6mIhRsCBWwByNYg.png)
 
 <br/>
+<hr/>
+
+## VueJs Directives (Direktifleri)
+
+[Bu Yazı Bu Linkteki Siteden alınmıştır.](https://ceaksan.com/tr/vue-js-direktifler-directives)
+
+#### VueJs Directives
+
+```JavaScript
+// Vue v2.x
+ var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello World!',
+    private: false,
+    number: 10,
+    user: {
+      firstName: 'Julius',
+      lastName: 'Rodman'
+    }
+  },
+  filters: {
+    uppercase(value) {
+     // veya uppercase: function(value) {
+      return value.toUpperCase()
+    }
+  },
+  methods: {
+    uppercase(value) {
+     return value.toUpperCase()
+    },
+    uppercase2(value) {
+     return this.$options.filters.uppercase(value);
+    }
+  }
+});
+
+// Vue v3.x
+// v3.x ile birlikte filtreler kullanımdan kaldırıldı.
+const app = Vue.createApp({
+  data() {
+    return {
+      message: 'Hello World!',
+      private: false,
+      number: 10,
+      user: {
+        firstName: 'Julius',
+        lastName: 'Rodman'
+      }
+    }
+  },
+  methods: {
+    uppercase(value) {
+     return value.toUpperCase()
+    },
+    uppercase2(value) {
+     return this.$options.filters.uppercase(value);
+    }
+  }
+}).mount('#app');
+
+```
+
+<br>
+
+- **v-text**
+
+  <p>
+  v-text direktifi içine aldığı ifadeyi (data içerisinde tanımladığımız key ya da bir method olabilir) attribute (nitelik/özellik) olarak dahil olduğu HTML etiketi arasına yazar. Özetle, document.getElementById("element").textContent; karşılığına sahiptir. {{...}} ifadeleri gibi değerlendirilebilir. Ancak, içeriğinde doğrudan işlem barındıramaz. Bu tür gereksinimler için mustaches ve methods gibi özellikleri kullanırız. 
+  </p>
+  Örnek Kullanımı
+
+  ```HTML
+  Hello <span v-for="who in user" v-text="uppercase(who)"></span>
+  ```
+
+  <p>
+  Yukarıdaki ilk filtre kullanım örneğinde de bahsi geçtiği üzere uppercase adında bir filtremiz bir de metotumuz var. v-text direktifi içerisinde filtre kullanılmadığı için (az önceki örnek bir istisna yöntem barındırmakta) Vue.js uppercase‘i filtrelerde aramayacaktır. Bu nedenle de bir karışıklık ortaya çıkmamakta. Örnek, işleme alındığı anda uppercase() metotuna ulaşmakta ve içerdiği değere toUpperCase() uygulayıp döndürmekte.
+  </p>
+
+  ```HTML
+  Hello <span v-for="who in user" v-text="uppercase2(who)"></span>
+  ```
+
+  <p>
+  uppercase2() yine bir önceki örnekteki gibi benzer bir sürece sahip. Ancak, içeriği uppercase() metotundan biraz farklı. Çünkü, this.$options.filters.uppercase ile aslında uppercase filtresine ulaşmaktayız. Evet, v-text içerisinde normal şartlarda filtre kullanamıyor olabiliriz. Ancak, metotlarla filtrelere erişerek işlemler yapabiliriz.
+  </p>
+
+```HTML
+Hello <span v-for="who in user" v-text="$options.filters.uppercase(who)"></span>
+```
+
+<p>
+Bu sayede app.$options ile instance içeriklerine (components, directives, filters, methods…) ulaşabilmekteyiz. Console alanına app.$options yazarak nelere erişebileceğimize bir göz atmanızı öneririm.
+</p>
+
+- **v-html**
+
+<p>
+document.getElementById('element').innerHTML v-text yeteneklerine ek olarak kod içeriğinde HTML etiketleri kullanmamızı mümkün kılmakta. Dolayısıyla yukarıdaki örnekleri v-text yerine v-html yazarak ve value olarak HTML etiketleri ekleyecek yineleyebilirsiniz. Unutmayın, v-html kullanıcı tarafından sağlanan içerikler sebebiyle Cross-Site Scripting (XSS) saldırısına için zemin oluşturabilir.
+</p>
+
+<br>
+
+- v-once
+
+<p>
+v-text, v-html ya da mustaches, değeri nasıl HTML etiketleri arasına uyguladığınız önemli değil. Önemli olan v-once kullanımında, belirtilen direktifin reaktif özelliğini kaybedecek olması. Sayfa açık iken v-once ile işaretlenen değişkene yeni değer atanmış olması önemli değil, içeriği değişmeyecektir. v-once sayesinde değer bir defa gösterilir ve bir daha güncellen(e)mez.
+</p>
+
+```HTML
+<div v-once="user">Hello {{ user.firstName + ' ' + user.lastName | uppercase }}</div>
+<div>Hello <span v-for="who in user" v-text="who" v-once="who"></span></div>
+<div>Hello <span v-for="who in user" v-text="uppercase(who)" v-once="user"></span></div>
+```
+
+<p>
+Console üzerinden veya Vue instance içerisinde user.firstName ve/ya user.lastName için yeni değerler ilettiğinizde ilgili alanların güncellenmediğini görebilirsiniz.
+</p>
+
+<br>
+
+- v-for
+
+<p>
+v-for bir listeleme direktifi (repeater) olarak kullanılmaktadır. Obje/dizi içeriklerini sırayla belirtilen alana atar ve x in y şeklinde ifade edilir. Örneğin, v-for="msg in message. Yukarıdaki örneklerde görüldüğü üzere user içeriği sırasıyla who‘ya aktarılmaktadır. Aşağıdaki örnekte ise message içeriğinde farklı dillerde Selam ifadeleri yer alır ve yine sırasıyla msg‘ye aktarılarak uygulanır.
+</p>
+
+```HTML
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>Vue Example #1</title>
+ </head>
+ <body>
+  <div id="app">
+   <ul>
+    <li v-for="msg in message" v-bind:title="msg">{{ msg }}</li>
+   </ul>
+  </div>
+  <script src="https://vuejs.org/js/vue.js"></script>
+  <script>
+  // Vue v2.x
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: ['Selam', 'Hello', 'Tungjatjeta', 'Salam', 'Вiтаю', 'Hola', 'Hallo', 'Tere']
+    }
+  });
+
+  // Vue v3.x
+  const app = Vue.createApp({
+    data() {
+      return {
+        message: ['Selam', 'Hello', 'Tungjatjeta', 'Salam', 'Вiтаю', 'Hola', 'Hallo', 'Tere']
+      }
+    }
+  }).mount('#app');
+  </script>
+ </body>
+</html>
+```
+
+##### Sonuç Olarak
+
+<p>
+v-text, v-html direktifleri çok komplike olmayan özellikleri oldukça pratik bir şekilde icra etmektedirler. Bu direktifler yerine genelde mustaches kullanımı tercih edilmektedir. v-once komponent kullanımında yer bulan ve reaktif işlemlerin dışarıda tutulması istenen durumlarda sıklıkla kullanılabilmektedir. v-for ise en çok kullanılan direktiflerden biri ve v-if, v-show, v-on v-bind gibi direktiflerle özel ilişkiler oluşturabilmekte.
+</p>
+
+<br>
+
+- v-show
+  <p>
+  Element’in görünürlüğüne CSS display üzerinden müdahale eder; display: block | none. Direktif ilgili elementin durumu değiştiğinde geçişleri tetikler. Unutmadan, v-show < template > ile kullanılamaz ve v-else ile ilişkilendirilemez. Hemen bir örnek işlem gerçekleştirelim.
+  </p>
+
+**JavaScirpt**
+
+```JavaScript
+var app = new Vue({
+  el: '#app',
+  data: {
+    title: 'Ten Countries with the Highest Population in the World',
+    styleObject: {
+      'color': 'red',
+      'font-weight': 'bold'
+    },
+    age : 10,
+    countriesAndCapitals: [{
+        'China': 'Beijing'
+      },
+      {
+        'India': 'New Delhi'
+      },
+      {
+        'United States': 'Washington, D.C.'
+      },
+      {
+        'Indonesia': 'Jakarta'
+      },
+      {
+        'Brazil': 'Brasilia'
+      },
+      {
+        'Pakistan': 'Islamabad'
+      },
+      {
+        'Nigeria': 'Abuja'
+      },
+      {
+        'Bangladesh': 'Dhaka'
+      },
+      {
+        'Russia': 'Moscow'
+      },
+      {
+        'Mexio': 'Mexico City'
+      }
+    ]
+  },
+  methods: {
+    getCountry(index) {
+      return Object.keys(this.countriesAndCapitals[index])[0]
+    }
+  }
+})
+```
+
+**HTML**
+
+```HTML
+	<div id="app">
+
+		<h1>{{ title }}</h1>
+    <h2>v-show Example</h2>
+		<ul>
+			<li v-for="(country, index) in countriesAndCapitals" :key="index" v-show="index % 2 !== 1">
+				{{ index + 1 }}. Country is <strong>{{ getCountry(index) }}</strong> and its Capital is <span
+					v-for="capital in country" v-text="capital" :style="styleObject"></span>
+			</li>
+		</ul>
+
+		<hr />
+    <h2>v-if Example</h2>
+		<ul>
+			<li v-for="(country, index) in countriesAndCapitals" :key="index" v-if="index % 2 !== 1">
+				{{ index + 1 }}. Country is <strong>{{ getCountry(index) }}</strong> and its Capital is <span
+					v-for="capital in country" v-text="capital" :style="styleObject"></span>
+			</li>
+		</ul>
+		<hr />
+<h2>v-if / v-else-if / v-else Example</h2>
+		<ul>
+			<li v-if="age < 18">Generation Z, or iGeneration (Teens & younger)</li>
+			<li v-else-if="age => 18 && age < 35">Millennials, or Generation Y (18 – 34 years old)</li>
+			<li v-else-if="age => 35 && age < 51">Generation X (Roughly 35 – 50 years old)</li>
+			<li v-else>Baby Boomers (Roughly 50 to 70 years old)</li>
+		</ul>
+	</div>
+```
+
+- v-if/v-else-if/v-else
+
+<p>
+Yukarıdaki örnekte yer alan 2. listeye (v-if Example) baktığınızda v-if="index % 2 !== 1" işleminin bizi yine aynı sonuca ulaştırdığını göreceksiniz. Fakat, kaynak kodlara baktığımızda bu defa belirttiğimiz duruma uymayan elementler yerine <!----> şeklinde yorum satırlarının eklendiğini göreceksiniz.
+</p>
+<hr>
+<br>
+
+<p>
+Evet, v-if kullanımında render aşamasında belirtilen duruma uymayan elementler render dışında tutulurlar. v-show ile temel farklılığı işte tam olarak bu! Bu farklılığı maddeler üzerinden ele alacak olursak;
+ 
+* v-if gerçek bir koşul ifadesidir. Koşul bloğu içerisindeki etkinlik dinleyiciler (event listener) ve alt bileşenler (child component) tamamen kaldırılır ve/veya eklenir.
+* Bir üst açıklamayla ilişkili olarak, v-if ilgili bloğu yeniden oluşturduğu (render) ve/veya yok ettiği için v-show‘a göre daha hantaldır. Tabi, diğer yandan v-if gereksiz yere kullanılmayacak blokların da render edilmemesini sağlar. Dolayısıyla kullanım aşamasında ihtiyaçlar ve olası senaryolara göre tercihte bulunmak daha doğrudur.
+
+</p>
+
+<br>
+
+- v-on
+
+<p>
+Elemente bir etkinlik dinleyicisi (event listener) ekler. Etkinlik türü, argüman (argument) ile gösterilir. @ şeklinde kısaltılmış bir şekilde kullanılabilir; örneğin @click="...". İfade (expression) bir metot (method) veya satır içi ifade (inline statement) olabilir. Normal bir element kullanıldığında, yalnızca native DOM olaylarını dinler. Özel bir element bileşeninde (component) kullanıldığında, v-on direktifi (emit) alt bileşende (child component) yayılan özel etkinlikleri (custom events) de dinleyecektir. Satır içi ifadelerde, ifade özel $event özelliğine erişebilir: v-on: click = "handle ('ok', $event)". 2.4.0+ sürümünden başlayarak, v-on ayrıca bir argüman olmadan olay / dinleyici (event/listener) çifti nesnesine (object) bağlanmayı (binding) da destekler. Unutmanda, nesne (object) söz diziminde modifier desteği söz konusu değil. Öncelikle modifier listesine bir bakalım:
+
+1.  .stop – event.stopPropagation() metotunu çağırır.
+2.  .prevent – event.preventDefault() metotunu çağırır.
+3.  .capture – Yakalama modunda (capture mode) etkinlik dinleyici ekler.
+4.  .self – Yalnızca etkinlik bu öğeden gönderilirse (dispatch) işlem gerçekleştirir.
+5.  .{ keyCode | keyAlias } – Sadece belirli key tanımları için işlem gerçekleştirir.
+6.  .native – Bileşenin (component) ana elementiye (root) ilgili yerel (native) etkinlikleri dinler.
+7.  .once – Tek seferlik işlem gerçekleştirir.
+8.  .left – (2.2.0+) Mouse sol tıklama ile ilişkili olarak etkinlik gerçekleştirir.
+9.  .right – (2.2.0+) Mouse sağ tıklama ile ilişkili olarak etkinlik gerçekleştirir.
+10. .middle – (2.2.0+) Mouse orta tuş tıklama ile ilişkili olarak etkinlik gerçekleştirir.
+11. .passive – (2.3.0+) {passive: true} ile bir DOM olayına ilişir.
+
+    </p>
+
+```HTML
+// method handler:
+<button v-on:click="..."></button>
+<button @click="..."></button>
+
+// dinamik etkinlik (event) (2.6.0+) kullanımı:
+<button v-on:[event]="..."></button>
+<button @[event]="..."></button>
+
+// ifade (expression) olmaksızın doğrudan işlem
+
+<form @submit.prevent></form>
+
+// keyAlias ile Enter tuşu işlemi
+<input @keyup.enter="...">
+
+// Tek seferlik tıklama etkinliği
+<button v-on:click.once="..."></button>
+<button @:click.once="..."></button>
+
+// Mouse etkinliği (object syntax (2.4.0+)):
+<button v-on="{ mousedown: ..., mouseup: ... }"></button>
+```
+
+- v-bind
+
+<p>
+v-bind en kapsamlı ve en çok kullanılan direktiflerden biri6. Kısa yol olarak v-bind yerine sadece : kullanılabilir7. Dinamik olarak bir veya daha fazla attribute veya component prop işlemi gerçekleştirebilmemizi sağlamakta. Unutmadan, prop binding işleminde alt komponent içeriğinde prop tanımlanımlı olması gerekmektedir. .prop, .camel ve .sync modifier’larını ve opsiyonel olarak attrOrProp argümanını alabilmekte. class veya style attribute işlemlerinde array veya object kullanabilmekteyiz. v-bind, bir argüman olmadan kullanıldığında attribute adı ve değeri içeren bir object ile ilişkilendirilebilir. Yalnız, bu durumda class ve style array ya da object alamaz. Bu açıklamalar tam olarak ne ifade ediyor, bir bakalım.
+</p>
+
+```HTML
+<a href="https://ceaksan.com/vue-js-v-show-v-if-v-else-if-v-else-v-on-v-bind/"> ... </a>
+<a href="https://ceaksan.com/vue-js-v-show-v-if-v-else-if-v-else-v-on-v-bind/"> ... </a>
+
+// görsel için src (attribute) içeriği oluşturma:
+<img v-bind:src="...">
+<img :src="https://ceaksan.com/vue-js-v-show-v-if-v-else-if-v-else-v-on-v-bind/">
+<img :src="https://ceaksan.com/vue-js-v-show-v-if-v-else-if-v-else-v-on-v-bind/">
+
+// dinamik özellik tanımı (key ve value) (2.6.0+):
+<button v-bind:[key]="value"></button>
+<button :[key]="value"></button>
+
+// class tanımları:
+<div :class="{ red: isRed }"></div>
+<div :class="[classA, classB]"></div>
+<div :class="[classA, { classB: isB, classC: isC }]">
+
+// stil tanımları
+<div :style="{ fontSize: size + 'px' }"></div>
+<div :style="styleObjectA"></div>
+<div :style="[styleObjectA, styleObjectB]"></div>
+
+// nesne özelliği
+<div v-bind="{ id: someProp, 'other-attr': otherProp }"></div>
+
+// prop modifier ile DOM işlemleri
+<div v-bind:text-content.prop="text"></div>
+
+// <!-- prop binding. "prop" must be declared in my-component. -->
+<my-component :prop="someThing"></my-component>
+
+// alt bileşen ile prop ilişkisi oluşturma
+<child-component v-bind="$props"></child-component>
+
+// XLink.
+<svg><a :xlink:special="foo"></a></svg>
+<svg :view-box.camel="viewBox"></svg>
+```
+
+<br>
+
+- v-model
+
+<p>
+ v-model direktifi two-way binding olarak ifade edilen özelliği sebebiyle sıklıkla kullanılan direktiflerden biridir. Two-way binding ifadesi Model’deki bir değişikliğin ekranda, ekrandaki bir değişikliğin de eş zamanlı olarak (.lazy kullanımı dışında) Model’de güncellenmesi olarak açıklanabilir. O halde, v-model ile ilgili diğer detaylara geçebiliriz.
+
+v-model
+Az önce de belirttiğim üzere sıklıkla kullanılan bir diğer direktif olan v-model sunduğu two-way binding özelliği sayesinde pek çok form elemanıyla 1 2 birlikte (value, checked, selected) kullanılabilir. v-model yerine v-bind/v-on kullanıldığına da tanık olabilirsiniz3. Bu durumda bilmeniz gereken, bunun bir zorunluluk olabileceğidir. Diğer durumda v-model ilk tercih olmalıdır.
+
+</p>
+
+```HTML
+<div id="app">
+ <h1 v-text="message"></h1>
+ <input type="text" v-model="message" />
+</div>
+
+<script>
+// Vue v2.x
+new Vue({
+ el: '#app',
+ data: {
+  message: 'Hello World!'
+ }
+});
+
+// Vue v3.x
+Vue.createApp({
+  data() {
+    return {
+      message: 'Hello World!'
+    }
+  }
+}).mount('#app');
+</script>
+```
+
+<p>
+Yukarıdaki örnek en basit şekilde bir v-model işlemi gerçekleştirmektedir. Form elemanı içerisindeki değişikliğin aynı zamanda h1 etiketi içeriğine uygulandığını görebilirsiniz. Örneği biraz değiştirelim ve 3 farklı şekilde (js expression, computed ve method) yineleyelim.
+</p>
+
+```HTML
+<div id="app">
+    <h1 v-text="message"></h1>
+    <h1>{{ reversedMessage }}</h1>
+    <h1 v-text="reversedMessage"></h1>
+    <input type="text" v-model="message" />
+</div>
+<script>
+  // Vue v2.x
+new Vue({
+ el: '#app',
+ data: {
+  message: 'Hello World!'
+ }
+ computed: {
+  reversedMessage() {
+   return this.message.split('').reverse().join('')
+  }
+ }
+});
+
+// Vue v3.x
+Vue.createApp({
+  data() {
+    return {
+      message: 'Hello World!'
+    }
+  },
+  computed: {
+    reversedMessage() {
+      return this.message.split('').reverse().join('')
+    }
+  }
+}).mount('#app');
+</script>
+```
+
+<p>
+Görüldüğü gibi sonuçta bir farklılık yaşanmamakta. computed property ve method kullanımlarına dair ayrıca yazı yayınlacağım için şimilik açıklamayı kısa tutacağım. computed property içeriği uygulandığında, yani bağlı olduğu değişken ekranda gösterildiğinde ön belleğe alınır (cache) ve bu değişken değişmediği sürece tekrar hesaplama yapılmaz ve ilk halini korur. method kullanımında ise her seferinde hesaplama yapılır ve son değer yansıtılır, ön belleğe alma işlemi gerçekleştirilmez. Bu kısa açıklamanın ardından bir de method örneğimizi ekleyelim.
+</p>
+
+```HTML
+<div id="app">
+    <h1 v-text="message"></h1>
+    <h1>{{ reversedMessage() }}</h1>
+    <h1 v-text="reversedMessage()"></h1>
+</div>
+<script>
+// Vue v2.x
+new Vue({
+ el: '#app',
+ data: {
+  message: 'Hello World!'
+ }
+ method: {
+  reversedMessage() {
+   return this.message.split('').reverse().join('')
+  }
+ }
+});
+// Vue v3.x
+Vue.createApp({
+  data() {
+    return {
+      message: 'Hello World!'
+    }
+  },
+  method: {
+    reversedMessage() {
+    return this.message.split('').reverse().join('')
+    }
+  }
+}).mount('#app');
+</script>
+```
+
+<br>
+
+- v-pre
+
+<p> 
+Empty directive olarak ifade edilebilir. Herhangi bir expression almaz. v-pre kendi elementi ve alt elementler için derlemenin (compilation) es geçilmesini sağlar. Aşağıdaki gibi bir kullanımda mustaches içeriği uygulanmayacak ve ifade olduğu haliyle tutulacaktır.
+</p>
+
+```HTML
+<p v-pre>{{ selected }}</p>
+```
+
+Mustaches dışında, herhangi bir yönerge içermeten geniş çaplı etiket yığınlarının derlenmesinin istenmediği durumlarda da kullanılabilir.
+
+- v-cload
+
+Bir diğer empty directive olan v-cloak ViewModel derlemeyi tamamlayana kadar eklendiği element üzerinde kalır. Bir CSS tanımı ile birlikte (örneğin bir div için) derleme süreci tamamlanana, ViewModel hazır olana kadar mustaches ifadelerin gizlenmesi sağlanabilir.
+
+```JavaScript
+[v-cloak] {
+ display:none
+}
+```
+
+<br>
+
+- v-slot
+
+v-slot < template > ve bileşenlerle (component) kullanılır. İçerik için (template, component) dağıtım noktaları olarak görev yapar. Kısaca # ile ifade edilebilir.
+
+```HTML
+<base-layout>
+  <template v-slot:header>
+    <h1>H1 Heading</h1>
+  </template>
+
+  <p>A paragraph.</p>
+
+  <template #:footer>
+    <p>A footer info.</p>
+  </template>
+</base-layout>
+```
+
+[Makalenin Kaynak Linki için buraya tıklayın.](https://ceaksan.com/tr/vue-js-v-model-v-pre-v-cloak-v-slot)
+<br/>
+
 <hr/>
 
 MIT License
