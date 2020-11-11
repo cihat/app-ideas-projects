@@ -169,6 +169,66 @@ var app = new Vue({
 });
 ```
 
+### Computed Property İle Methods Karşılaştırması
+
+v-model direktifi açıklamasında da bahsi geçtiği üzere computed ve methods‘un işlev anlamında örtüştüğü noktalar olsalar da temel ve aslında önemli bir farklılık da mevcut5. computed property bağlı olduğu değişkeni ekranda sunarken ön belleğe (cache) de alır ve bu değişken değişmediği sürece tekrar hesaplama yapmaz. method kullanımında ise hesaplama yinelenir ve son değer ön bellekleme olmadan ekrana yansıtılır. Özetle, method re-render gerçekleşen her durumda yeniden çalıştırılır, ancak computed kapsamındaki işlemler yinelenmez.
+
+```HTML
+<template>
+<p>{{ reverseMessage() }}</p>
+veya
+<p v-text="reverseMessage()"></p>
+</template>
+<script>
+methods: {
+  reverseMessage() {
+    return this.message.split('').reverse().join('')
+  }
+}
+</script>
+```
+
+### Computed Property İle Watched Property Karşılaştırması
+
+VueJS, data değişikliklerini gözlemlemek ve bunlara tepki vermek için watch properties olarak ifade edilen daha genel bir yola daha sahiptir. Lifecycle içerisinde watch component var olduğu sürede, o component içeriğindeki datalarla ilgili değişiklikleri yakalamızı sağlar. Örneğin, bir veri bir başka veriye bağlı ise ve bağlı olduğu veride değişiklik söz konusu olmuşsa watch (watcher / watched prop) kullanımı tercih edilebilir. Şöyle bir örneğimiz olsun;
+
+```HTML
+<script>
+const app = Vue.createApp({
+  data() {
+    return {
+      message: `It's a New Day!`,
+      firstName: 'John',
+      lastName: 'Doe',
+      fullName: 'John Doe'
+    }
+  },
+  computed: {
+    welcome() {
+      return 'Hello' + ' <strong>' + this.fullName + '</strong>, ' + this.message
+    }
+  },
+  watch: {
+    message(val) {
+      this.message = val
+    },
+    firstName(val) {
+      this.fullName = val + ' ' + this.lastName
+    },
+    lastName(val) {
+      this.fullName = this.firstName + ' ' + val
+    }
+  }
+}).mount('#app');
+</script>
+```
+
+<p>
+
+**_Özetlemek gerekirse, computed properties diğer verilerden türetilmiş yeni veriler oluşturmak istendiğinde öne çıkmaktadır. Bu verileri dönüştürmek (transform), filtrelemek (filter) ya da değiştirmek (manipulate) istediğimizde rahatlıkla kullanabiliriz. Computed properties her zaman bir değer döndürmek (return) ve eş zamanlı olmak durumundadır. Diğer yandan, bir bileşenin (component) prop aldığını ve bu prop içeriğinin her değişmesi durumunda bir AJAX isteği gerçekleştirilmesi gerektiğini düşünün. Bu durumda Watch property ile verideki değişikliği izlemek çok daha isabetli bir karar olacaktır. Özetlemek gerekirse asynchronous ve bütçeli operasyonlardaki veri değişikliklerinin takibinde watch değerlendirilebilir bir seçenektir._**
+
+</p>
+
 ![lifeCycle](https://miro.medium.com/max/512/1*byyX8EW6mIhRsCBWwByNYg.png)
 
 <br/>
@@ -312,8 +372,8 @@ v-for bir listeleme direktifi (repeater) olarak kullanılmaktadır. Obje/dizi i�
     <li v-for="msg in message" v-bind:title="msg">{{ msg }}</li>
    </ul>
   </div>
-  <script src="https://vuejs.org/js/vue.js"></script>
-  <script>
+  < src="https://vuejs.org/js/vue.js"></>
+  <>
   // Vue v2.x
   var app = new Vue({
     el: '#app',
@@ -330,7 +390,7 @@ v-for bir listeleme direktifi (repeater) olarak kullanılmaktadır. Obje/dizi i�
       }
     }
   }).mount('#app');
-  </script>
+  </>
  </body>
 </html>
 ```
@@ -558,7 +618,7 @@ Az önce de belirttiğim üzere sıklıkla kullanılan bir diğer direktif olan 
  <input type="text" v-model="message" />
 </div>
 
-<script>
+<>
 // Vue v2.x
 new Vue({
  el: '#app',
@@ -575,7 +635,7 @@ Vue.createApp({
     }
   }
 }).mount('#app');
-</script>
+</>
 ```
 
 <p>
@@ -589,7 +649,7 @@ Yukarıdaki örnek en basit şekilde bir v-model işlemi gerçekleştirmektedir.
     <h1 v-text="reversedMessage"></h1>
     <input type="text" v-model="message" />
 </div>
-<script>
+<>
   // Vue v2.x
 new Vue({
  el: '#app',
@@ -616,7 +676,7 @@ Vue.createApp({
     }
   }
 }).mount('#app');
-</script>
+</>
 ```
 
 <p>
@@ -629,7 +689,7 @@ Görüldüğü gibi sonuçta bir farklılık yaşanmamakta. computed property ve
     <h1>{{ reversedMessage() }}</h1>
     <h1 v-text="reversedMessage()"></h1>
 </div>
-<script>
+<>
 // Vue v2.x
 new Vue({
  el: '#app',
@@ -655,7 +715,7 @@ Vue.createApp({
     }
   }
 }).mount('#app');
-</script>
+</>
 ```
 
 <br>
